@@ -1,7 +1,29 @@
+import DOMService from "../View/DOMService.js";
+
 class ShopController {
+    constructor() {
+        this.domService = new DOMService(this)
+    }
+
+    addProduct(e) {
+        e.preventDefault();
+        console.log('ShopContorller: addProduct')
+    }
+
+    makeOrder() {
+        console.log('ShopController: makeOrder')
+    }
+
+    buyProduct(e) {
+        console.log("buyProduct: " + e.target.dataset.id)
+    }
+
+    dropProduct(e) {
+        console.log("dropProduct: " + e.target.dataset.id)
+    }
+
     run() {
-        console.log('Hello')
-        console.log('HI thers')
+        console.log(this.domService)
     }
 }
 
