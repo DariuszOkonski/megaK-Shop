@@ -1,4 +1,5 @@
 import DOMService from "../View/DOMService.js";
+import ProductService from "../View/ProductService.js";
 
 class ShopController {
     constructor() {
@@ -7,6 +8,8 @@ class ShopController {
 
     addProduct(e) {
         e.preventDefault();
+
+
         console.log('ShopContorller: addProduct')
     }
 
@@ -15,7 +18,7 @@ class ShopController {
     }
 
     buyProduct(e) {
-        console.log("buyProduct: " + e.target.dataset.id)
+
     }
 
     dropProduct(e) {
