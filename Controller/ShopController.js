@@ -6,11 +6,13 @@ class ShopController {
         this.domService = new DOMService(this)
     }
 
-    addProduct(e) {
+    addProduct = (e) => {
         e.preventDefault();
 
-
         console.log('ShopContorller: addProduct')
+
+        const newProduct = this.domService.getNewProductCredentials()
+        console.log(newProduct)
     }
 
     makeOrder() {
@@ -18,7 +20,7 @@ class ShopController {
     }
 
     buyProduct(e) {
-
+        console.log('ShopController: buyProduct')
     }
 
     dropProduct(e) {
