@@ -6,5 +6,55 @@
 </head>
 <body>
     <h1>MegaK - Shop</h1>
+
+    <div data-products>
+        <h2>Product's List:</h2>
+        <ul data-products-items>
+            <li data-products-item>
+                <span data-product-name>Cucumbers</span> -
+                <span data-product-price>9.99</span>
+                <button data-product-btn-buy>Buy!</button>
+            </li>
+            <li data-products-item>
+                <span data-product-name>Cucumbers</span> -
+                <span data-product-price>9.99</span>
+                <button data-product-btn-buy>Buy!</button>
+            </li>
+            <li data-products-item>
+                <span data-product-name>Cucumbers</span> -
+                <span data-product-price>9.99</span>
+                <button data-product-btn-buy>Buy!</button>
+            </li>
+        </ul>
+    </div>
+
+
+    <div data-cart>
+        <h2>Cart:</h2>
+        <ul data-cart-items>
+            <li data-cart-item>
+                <span data-cart-number>1</span> -
+                <span data-cart-product-name>breed</span>
+                <span data-cart-price>7.7</span> zł
+                <button data-cart-btn-drop>drop</button>
+            </li>
+            <li data-cart-item>
+                <span data-cart-number>1</span> -
+                <span data-cart-product-name>breed</span>
+                <span data-cart-price>7.7</span> zł
+                <button data-cart-btn-drop>drop</button>
+            </li>
+        </ul>
+        <button data-cart-btn-order>Make order for amount of: <span data-cart-order-amount>24</span> zł</button>
+    </div>
+
+    <div data-admin>
+        <h2>Admin: Add new product:</h2>
+        <form>
+            <input type="text" data-admin-product-name>
+            <input type="number" data-admin-amount>
+            <input type="submit" value="Add" data-admin-btn-add>
+        </form>
+    </div>
 </body>
 </html>
