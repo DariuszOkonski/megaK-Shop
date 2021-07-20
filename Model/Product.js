@@ -1,6 +1,6 @@
 import {createUniqueID} from "../Utilities/utilities.js";
 
-export default class ProductService {
+export default class Product {
     constructor(name, price) {
         this.id = createUniqueID()
         this.name = name;

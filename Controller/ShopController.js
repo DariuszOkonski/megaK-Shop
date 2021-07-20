@@ -1,18 +1,25 @@
 import DOMService from "../View/DOMService.js";
-import ProductService from "../View/ProductService.js";
+import ProductController from "./ProductController.js";
 
 class ShopController {
     constructor() {
         this.domService = new DOMService(this)
+        this.productController = new ProductController();
+
+        console.log(this.domService)
     }
 
-    addProduct = (e) => {
+    addProduct(e){
         e.preventDefault();
-
         console.log('ShopContorller: addProduct')
 
         const newProduct = this.domService.getNewProductCredentials()
-        console.log(newProduct)
+
+        if(newProduct === undefined)
+            return;
+
+        this.productController.getNewProduct(newProduct);
+
     }
 
     makeOrder() {
