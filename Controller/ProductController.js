@@ -1,20 +1,24 @@
 import Product from "../Model/Product.js";
-import ProductsStoreService from "../Model/ProductsStoreService.js";
+import WarehouseService from "../Model/WarehouseService.js";
+import ProductsLocalStorageService from "../Model/ProductsLocalStorageService.js";
 
 export default class ProductController {
-    #storeService;
+    #warehouseService;
+    #productsLocalStorageService;
 
     constructor() {
-        this.#storeService = new ProductsStoreService();
+        this.#warehouseService = new WarehouseService();
+        this.#productsLocalStorageService = new ProductsLocalStorageService();
     }
 
     addProduct({name, price}) {
         const product = new Product(name, price).getProductJSON();
-        this.#storeService.addProductToStore(product);
+        this.#warehouseService.addProductToStore(product);
 
-        const products = this.#storeService.getProducts();
+        const products = this.#warehouseService.getProducts();
 
-        console.log(products)
+        this.#productsLocalStorageService.setProductsToLocalStorage(products)
+
         console.log("recived new product")
     }
 }
