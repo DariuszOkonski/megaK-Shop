@@ -2,25 +2,23 @@ import DOMService from "../View/DOMService.js";
 import ProductController from "./ProductController.js";
 
 class ShopController {
+    #domService;
+    #productController;
     constructor() {
-        this.domService = new DOMService(this)
-        this.productController = new ProductController();
+        this.#domService = new DOMService(this)
+        this.#productController = new ProductController();
 
-        console.log(this.domService)
+        console.log(this.#domService)
     }
 
     addProduct = (e) => {
         e.preventDefault();
-        // console.log('ShopContorller: addProduct')
-        const newProduct = this.domService.getNewProductCredentials()
+        const newProduct = this.#domService.getNewProductCredentials()
 
         if(newProduct === undefined)
             return;
 
-        // console.log(newProduct)
-
-        this.productController.getNewProduct(newProduct);
-
+        this.#productController.getNewProduct(newProduct);
     }
 
     makeOrder() {
@@ -36,7 +34,7 @@ class ShopController {
     }
 
     run() {
-        console.log(this.domService)
+        console.log(this.#domService)
     }
 }
 
