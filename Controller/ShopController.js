@@ -18,6 +18,7 @@ class ShopController {
 
         const products = this.#productController.getProductsFromLocalStorage();
         this.#domService.renderAvailableProducts(products);
+        this.#domService.renderProductsFromCart(null);
     }
 
     addProduct = (e) => {
@@ -46,7 +47,6 @@ class ShopController {
 
         const products = this.#cartController.getAllProductsFromCart()
 
-        // TODO: send products from cart to DOMService
         this.#domService.renderProductsFromCart(products)
     }
 

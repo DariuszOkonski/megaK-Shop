@@ -35,6 +35,25 @@ export default class DOMService {
     }
 
     renderProductsFromCart(products) {
+        this.#ulCartItems.innerHTML = "";
+
+        if(!products) {
+            this.#ulCartItems.innerHTML = `<h2>Cart is empty</h2>`
+            return;
+        }
+
+        products.forEach((product, index) => {
+            console.log(product)
+            const element = `
+                <li data-cart-item>
+                    <span data-cart-number>${index + 1}</span> - 
+                    <span data-cart-product-name>${product.name}</span>
+                    <span data-cart-price>${product.price}</span> zł
+                <button data-id="${product.id}" data-cart-btn-drop>drop</button>
+            </li>
+            `
+            this.#ulCartItems.innerHTML += element;
+        })
 
     }
 
