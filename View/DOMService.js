@@ -1,7 +1,7 @@
 export default class DOMService {
     constructor(shopController) {
         this.shopContorller = shopController;
-        this.formAddProduct = document.querySelector('[data-admin-form-submit]');
+        this.formAddProduct = document.querySelector('[data-admin-submit]');
         this.btnOrder = document.querySelector('[data-cart-btn-order]');
         this.allBtnBuy = document.querySelectorAll('[data-product-btn-buy]')
         this.allBtnDrop = document.querySelectorAll('[data-cart-btn-drop]')
@@ -12,11 +12,8 @@ export default class DOMService {
     }
 
     addAllEventListeners() {
-        this.formAddProduct.addEventListener('submit', (e) => {
-            e.preventDefault()
-            console.log('hi')
-            // this.shopContorller.addProduct
-        })
+        this.formAddProduct.addEventListener('submit', this.shopContorller.addProduct)
+
         this.btnOrder.addEventListener('click', this.shopContorller.makeOrder)
 
         this.allBtnBuy.forEach(btn =>

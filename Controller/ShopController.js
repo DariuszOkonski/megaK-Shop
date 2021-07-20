@@ -9,14 +9,15 @@ class ShopController {
         console.log(this.domService)
     }
 
-    addProduct(e){
+    addProduct = (e) => {
         e.preventDefault();
-        console.log('ShopContorller: addProduct')
-
+        // console.log('ShopContorller: addProduct')
         const newProduct = this.domService.getNewProductCredentials()
 
         if(newProduct === undefined)
             return;
+
+        // console.log(newProduct)
 
         this.productController.getNewProduct(newProduct);
 
