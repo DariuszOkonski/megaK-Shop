@@ -6,16 +6,20 @@ export default class DOMService {
     #allBtnDrop;
     #inputProductName;
     #inputProductPrice;
+    #ulProductsItems;
 
     constructor(shopController) {
         this.#shopContorller = shopController;
         this.#formAddProduct = document.querySelector('[data-admin-submit]');
         this.#btnOrder = document.querySelector('[data-cart-btn-order]');
-        this.#allBtnBuy = document.querySelectorAll('[data-product-btn-buy]')
+        // this.#allBtnBuy = document.querySelectorAll('[data-product-btn-buy]')
         this.#allBtnDrop = document.querySelectorAll('[data-cart-btn-drop]')
 
         this.#inputProductName = document.querySelector('[data-admin-product-name]');
         this.#inputProductPrice = document.querySelector('[data-admin-product-price]');
+
+        this.#ulProductsItems = document.querySelector('[data-products-items]');
+
         this.#addAllEventListeners();
     }
 
@@ -24,11 +28,31 @@ export default class DOMService {
 
         this.#btnOrder.addEventListener('click', this.#shopContorller.makeOrder)
 
-        this.#allBtnBuy.forEach(btn =>
-            btn.addEventListener('click', this.#shopContorller.buyProduct));
-
         this.#allBtnDrop.forEach(btn =>
             btn.addEventListener('click', this.#shopContorller.dropProduct));
+    }
+
+    renderAvailableProducts(products) {
+        this.#ulProductsItems.innerHTML = "";
+
+        if(products.length <= 0) {
+            this.#ulProductsItems.innerHTML = `<h2>No Products in Store</h2>`;
+            return;
+        }
+
+        products.forEach(product => {
+            const element = `
+                <li data-products-item>
+                    <span data-product-name>${product.name}</span> -
+                    <span data-product-price>${product.price}</span> zł
+                    <button data-id="${product.id}" data-product-btn-buy>Buy!</button>
+                </li>`;
+            this.#ulProductsItems.innerHTML += element;
+        })
+
+        this.#allBtnBuy = document.querySelectorAll('[data-product-btn-buy]')
+        this.#allBtnBuy.forEach(btn =>
+            btn.addEventListener('click', this.#shopContorller.buyProduct));
     }
 
     getNewProductCredentials() {
@@ -46,5 +70,6 @@ export default class DOMService {
             price: price
         }
     }
+
 
 }

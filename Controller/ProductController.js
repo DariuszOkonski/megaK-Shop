@@ -7,8 +7,9 @@ export default class ProductController {
     #productsLocalStorageService;
 
     constructor() {
-        this.#warehouseService = new WarehouseService();
         this.#productsLocalStorageService = new ProductsLocalStorageService();
+        this.#warehouseService =
+            new WarehouseService(this.#productsLocalStorageService.getProductsFromLocalStorage());
     }
 
     addProduct({name, price}) {
@@ -19,6 +20,10 @@ export default class ProductController {
 
         this.#productsLocalStorageService.setProductsToLocalStorage(products)
 
-        console.log("recived new product")
+        // console.log("recived new product")
+    }
+
+    getProductsFromLocalStorage() {
+        return this.#productsLocalStorageService.getProductsFromLocalStorage();
     }
 }

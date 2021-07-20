@@ -7,8 +7,14 @@ class ShopController {
     constructor() {
         this.#domService = new DOMService(this)
         this.#productController = new ProductController();
+        this.#render();
+    }
 
-        console.log(this.#domService)
+    #render() {
+        console.log('render-shop controller')
+
+        const products = this.#productController.getProductsFromLocalStorage();
+        this.#domService.renderAvailableProducts(products);
     }
 
     addProduct = (e) => {
@@ -19,6 +25,8 @@ class ShopController {
             return;
 
         this.#productController.addProduct(newProduct);
+
+        this.#render()
     }
 
     makeOrder() {

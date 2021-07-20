@@ -1,7 +1,7 @@
 export default class WarehouseService {
     #products;
-    constructor() {
-        this.#products = [];
+    constructor(products) {
+        this.#products = products;
     }
 
     addProductToStore(product) {
