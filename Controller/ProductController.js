@@ -1,11 +1,11 @@
 import Product from "../Model/Product.js";
-import StoreService from "../Model/StoreService.js";
+import ProductsStoreService from "../Model/ProductsStoreService.js";
 
 export default class ProductController {
     #storeService;
 
     constructor() {
-        this.#storeService = new StoreService();
+        this.#storeService = new ProductsStoreService();
     }
 
     addProduct({name, price}) {

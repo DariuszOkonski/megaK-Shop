@@ -1,4 +1,4 @@
-export default class StoreService {
+export default class ProductsStoreService {
     #products;
     constructor() {
         this.#products = [];
