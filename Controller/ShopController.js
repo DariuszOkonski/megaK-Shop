@@ -18,7 +18,7 @@ class ShopController {
         if(newProduct === undefined)
             return;
 
-        this.#productController.getNewProduct(newProduct);
+        this.#productController.addProduct(newProduct);
     }
 
     makeOrder() {
