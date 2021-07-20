@@ -16,4 +16,7 @@ export default class CartService {
         this.#products = [];
     }
 
+    getTotalAmountFromCart() {
+        return this.#products.reduce((acc, curr) => acc += curr.price, 0);
+    }
 }
