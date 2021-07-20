@@ -1,12 +1,15 @@
 import DOMService from "../View/DOMService.js";
 import ProductController from "./ProductController.js";
+import CartController from "./CartController.js";
 
 class ShopController {
     #domService;
     #productController;
+    #cartController;
     constructor() {
         this.#domService = new DOMService(this)
         this.#productController = new ProductController();
+        this.#cartController = new CartController();
         this.#render();
     }
 
@@ -33,8 +36,18 @@ class ShopController {
         console.log('ShopController: makeOrder')
     }
 
-    buyProduct(e) {
+    buyProduct = (e) => {
         console.log('ShopController: buyProduct')
+
+        const {name, price} = this.#productController.getProductById(e.target.dataset.id);
+        const product = this.#productController.getProduct(name, price)
+
+        this.#cartController.addProductToCart(product)
+
+        const products = this.#cartController.getAllProductsFromCart()
+
+        // TODO: send products from cart to DOMService
+        this.#domService.renderProductsFromCart(products)
     }
 
     dropProduct(e) {

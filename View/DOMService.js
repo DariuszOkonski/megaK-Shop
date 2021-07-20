@@ -7,6 +7,7 @@ export default class DOMService {
     #inputProductName;
     #inputProductPrice;
     #ulProductsItems;
+    #ulCartItems;
 
     constructor(shopController) {
         this.#shopContorller = shopController;
@@ -19,6 +20,7 @@ export default class DOMService {
         this.#inputProductPrice = document.querySelector('[data-admin-product-price]');
 
         this.#ulProductsItems = document.querySelector('[data-products-items]');
+        this.#ulCartItems = document.querySelector('[data-cart-items]');
 
         this.#addAllEventListeners();
     }
@@ -30,6 +32,10 @@ export default class DOMService {
 
         this.#allBtnDrop.forEach(btn =>
             btn.addEventListener('click', this.#shopContorller.dropProduct));
+    }
+
+    renderProductsFromCart(products) {
+
     }
 
     renderAvailableProducts(products) {

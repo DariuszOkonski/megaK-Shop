@@ -19,11 +19,17 @@ export default class ProductController {
         const products = this.#warehouseService.getProducts();
 
         this.#productsLocalStorageService.setProductsToLocalStorage(products)
+    }
 
-        // console.log("recived new product")
+    getProduct(name, price) {
+        return new Product(name, price).getProductJSON();
     }
 
     getProductsFromLocalStorage() {
         return this.#productsLocalStorageService.getProductsFromLocalStorage();
+    }
+
+    getProductById(id) {
+        return this.#warehouseService.getProductById(id);
     }
 }

@@ -11,4 +11,8 @@ export default class WarehouseService {
     getProducts() {
         return this.#products;
     }
+
+    getProductById(id) {
+        return this.#products.find(product => product.id === id);
+    }
 }
