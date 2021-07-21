@@ -14,11 +14,12 @@ class ShopController {
     }
 
     #render() {
-        console.log('render-shop controller')
+        const newProduct = this.#productController.getProductsFromLocalStorage();
+        this.#domService.renderAvailableProducts(newProduct);
 
-        const products = this.#productController.getProductsFromLocalStorage();
-        this.#domService.renderAvailableProducts(products);
-        this.#domService.renderProductsFromCart(null);
+        const products = this.#cartController.getAllProductsFromCart()
+        const totalCartValue = this.#cartController.getTotalAmountFromCart();
+        this.#domService.renderProductsFromCart(products, totalCartValue);
     }
 
     addProduct = (e) => {
@@ -33,29 +34,46 @@ class ShopController {
         this.#render()
     }
 
-    makeOrder() {
-        console.log('ShopController: makeOrder')
+    makeOrder = () => {
+        const totalAmountToPay = this.#cartController.getTotalAmountFromCart();
+
+        this.#cartController.clearCart();
+
+        const products = this.#cartController.getAllProductsFromCart()
+        const totalCartValue = this.#cartController.getTotalAmountFromCart();
+        this.#domService.renderProductsFromCart(products, totalCartValue);
+
+        alert('Total amount to pay: ' + totalAmountToPay);
     }
 
     buyProduct = (e) => {
-        console.log('ShopController: buyProduct')
-
         const {name, price} = this.#productController.getProductById(e.target.dataset.id);
         const product = this.#productController.getProduct(name, price)
 
         this.#cartController.addProductToCart(product)
 
         const products = this.#cartController.getAllProductsFromCart()
-
-        this.#domService.renderProductsFromCart(products)
+        const totalCartValue = this.#cartController.getTotalAmountFromCart();
+        this.#domService.renderProductsFromCart(products, totalCartValue)
     }
 
-    dropProduct(e) {
-        console.log("dropProduct: " + e.target.dataset.id)
+    dropProduct = (e) => {
+
+        this.#cartController.removeSingleProductFromCart(e.target.dataset.id);
+
+        const products = this.#cartController.getAllProductsFromCart();
+        const totalCartValue = this.#cartController.getTotalAmountFromCart();
+        this.#domService.renderProductsFromCart(products, totalCartValue);
+    }
+
+    #updateAndRenderCart() {
+        const products = this.#cartController.getAllProductsFromCart();
+        const totalCartValue = this.#cartController.getTotalAmountFromCart();
+        this.#domService.renderProductsFromCart(products, totalCartValue);
     }
 
     run() {
-        console.log(this.#domService)
+        // console.log(this.#domService)
     }
 }
 

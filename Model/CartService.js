@@ -17,6 +17,11 @@ export default class CartService {
     }
 
     getTotalAmountFromCart() {
-        return this.#products.reduce((acc, curr) => acc += curr.price, 0);
+        return this.#products.reduce((acc, curr) => acc += Number(curr.price), 0);
+    }
+
+    removeSingleProductFromCart(id) {
+        const products = this.#products.filter(product => product.id != id);
+        this.#products = products;
     }
 }

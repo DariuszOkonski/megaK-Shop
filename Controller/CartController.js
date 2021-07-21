@@ -14,4 +14,17 @@ export default class CartController {
         return this.#cartService.getAllProductsFromCart()
     }
 
+    clearCart() {
+        this.#cartService.clearCart();
+    }
+
+    getTotalAmountFromCart() {
+        return this.#cartService.getTotalAmountFromCart();
+    }
+
+    removeSingleProductFromCart(id) {
+        this.#cartService.removeSingleProductFromCart(id)
+    }
+
+
 }

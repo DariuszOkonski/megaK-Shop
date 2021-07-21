@@ -20,14 +20,14 @@
         <ul data-cart-items>
 <!--            JS renders this part-->
         </ul>
-        <button data-cart-btn-order>Make order for amount of: <span data-cart-order-amount>24</span> zł</button>
+        <button disabled data-cart-btn-order>Make order for amount of: <span data-cart-order-amount>0</span> zł</button>
     </div>
 
     <div data-admin>
         <h2>Admin: Add new product:</h2>
         <form data-admin-submit>
             <input type="text" data-admin-product-name />
-            <input type="number" data-admin-product-price />
+            <input type="number" step="0.01" data-admin-product-price />
             <input type="submit"  value="Add" />
         </form>
     </div>

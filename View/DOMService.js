@@ -8,19 +8,21 @@ export default class DOMService {
     #inputProductPrice;
     #ulProductsItems;
     #ulCartItems;
+    #spanCartOrderAmount
 
     constructor(shopController) {
         this.#shopContorller = shopController;
         this.#formAddProduct = document.querySelector('[data-admin-submit]');
         this.#btnOrder = document.querySelector('[data-cart-btn-order]');
         // this.#allBtnBuy = document.querySelectorAll('[data-product-btn-buy]')
-        this.#allBtnDrop = document.querySelectorAll('[data-cart-btn-drop]')
+        // this.#allBtnDrop = document.querySelectorAll('[data-cart-btn-drop]')
 
         this.#inputProductName = document.querySelector('[data-admin-product-name]');
         this.#inputProductPrice = document.querySelector('[data-admin-product-price]');
 
         this.#ulProductsItems = document.querySelector('[data-products-items]');
         this.#ulCartItems = document.querySelector('[data-cart-items]');
+        this.#spanCartOrderAmount = document.querySelector('[data-cart-order-amount]')
 
         this.#addAllEventListeners();
     }
@@ -29,18 +31,23 @@ export default class DOMService {
         this.#formAddProduct.addEventListener('submit', this.#shopContorller.addProduct)
 
         this.#btnOrder.addEventListener('click', this.#shopContorller.makeOrder)
-
-        this.#allBtnDrop.forEach(btn =>
-            btn.addEventListener('click', this.#shopContorller.dropProduct));
     }
 
-    renderProductsFromCart(products) {
+    renderProductsFromCart(products, totalCartValue = 0) {
         this.#ulCartItems.innerHTML = "";
 
-        if(!products) {
+        this.#btnOrder.setAttribute('disabled', 'true')
+        this.#spanCartOrderAmount.innerText = `${totalCartValue}`;
+
+        if(products.length <= 0) {
             this.#ulCartItems.innerHTML = `<h2>Cart is empty</h2>`
             return;
         }
+
+        if(products.length > 0) {
+            this.#btnOrder.removeAttribute('disabled')
+        }
+
 
         products.forEach((product, index) => {
             console.log(product)
@@ -55,6 +62,7 @@ export default class DOMService {
             this.#ulCartItems.innerHTML += element;
         })
 
+        this.#mountButtonsDrop();
     }
 
     renderAvailableProducts(products) {
@@ -75,9 +83,8 @@ export default class DOMService {
             this.#ulProductsItems.innerHTML += element;
         })
 
-        this.#allBtnBuy = document.querySelectorAll('[data-product-btn-buy]')
-        this.#allBtnBuy.forEach(btn =>
-            btn.addEventListener('click', this.#shopContorller.buyProduct));
+        // those buttons are dynamic, thats why can not be in constructor
+        this.#mountButtonsBuy();
     }
 
     getNewProductCredentials() {
@@ -96,5 +103,15 @@ export default class DOMService {
         }
     }
 
+    #mountButtonsBuy() {
+        this.#allBtnBuy = document.querySelectorAll('[data-product-btn-buy]')
+        this.#allBtnBuy.forEach(btn =>
+            btn.addEventListener('click', this.#shopContorller.buyProduct));
+    }
 
+    #mountButtonsDrop() {
+        this.#allBtnDrop = document.querySelectorAll('[data-cart-btn-drop]')
+        this.#allBtnDrop.forEach(btn =>
+            btn.addEventListener('click', this.#shopContorller.dropProduct));
+    }
 }
