@@ -1,3 +1,5 @@
+import {FRACTION_DIGITS} from "../Utilities/constants.js";
+
 export default class DOMService {
     #shopContorller;
     #formAddProduct;
@@ -37,7 +39,7 @@ export default class DOMService {
         this.#ulCartItems.innerHTML = "";
 
         this.#btnOrder.setAttribute('disabled', 'true')
-        this.#spanCartOrderAmount.innerText = `${totalCartValue}`;
+        this.#spanCartOrderAmount.innerText = `${totalCartValue.toFixed(FRACTION_DIGITS)}`;
 
         if(products.length <= 0) {
             this.#ulCartItems.innerHTML = `<h2>Cart is empty</h2>`
@@ -77,7 +79,7 @@ export default class DOMService {
             const element = `
                 <li data-products-item>
                     <span data-product-name>${product.name}</span> -
-                    <span data-product-price>${product.price}</span> zł
+                    <span data-product-price>${Number(product.price).toFixed(FRACTION_DIGITS)}</span> zł
                     <button data-id="${product.id}" data-product-btn-buy>Buy!</button>
                 </li>`;
             this.#ulProductsItems.innerHTML += element;
@@ -86,6 +88,11 @@ export default class DOMService {
         // those buttons are dynamic, thats why can not be in constructor
         this.#mountButtonsBuy();
     }
+
+    totalAmountToPay(totalAmountToPay) {
+        return alert('Total amount to pay: ' + totalAmountToPay.toFixed(FRACTION_DIGITS));
+    }
+
 
     getNewProductCredentials() {
         const name = this.#inputProductName.value;
@@ -98,8 +105,8 @@ export default class DOMService {
         this.#inputProductPrice.value = "";
 
         return {
-            name: name,
-            price: price
+            name: name.toLowerCase(),
+            price: price.toLowerCase()
         }
     }
 
