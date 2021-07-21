@@ -54,7 +54,6 @@ export default class DOMService {
         }
 
         products.forEach((product, index) => {
-            console.log(product)
             const element = `
                 <li data-cart-item>
                     <span data-cart-number>${index + 1}</span> - 
