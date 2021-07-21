@@ -1,7 +1,12 @@
-import {FRACTION_DIGITS} from "../Utilities/constants.js";
+import {
+    EMPTY_CART_INFO,
+    FRACTION_DIGITS,
+    PRODUCT_INPUT_VALIDATION_INFO,
+    TOTAL_PAY_INFO
+} from "../Utilities/constants.js";
 
 export default class DOMService {
-    #shopContorller;
+    #shopController;
     #formAddProduct;
     #btnOrder;
     #allBtnBuy;
@@ -13,11 +18,9 @@ export default class DOMService {
     #spanCartOrderAmount
 
     constructor(shopController) {
-        this.#shopContorller = shopController;
+        this.#shopController = shopController;
         this.#formAddProduct = document.querySelector('[data-admin-submit]');
         this.#btnOrder = document.querySelector('[data-cart-btn-order]');
-        // this.#allBtnBuy = document.querySelectorAll('[data-product-btn-buy]')
-        // this.#allBtnDrop = document.querySelectorAll('[data-cart-btn-drop]')
 
         this.#inputProductName = document.querySelector('[data-admin-product-name]');
         this.#inputProductPrice = document.querySelector('[data-admin-product-price]');
@@ -30,9 +33,9 @@ export default class DOMService {
     }
 
     #addAllEventListeners() {
-        this.#formAddProduct.addEventListener('submit', this.#shopContorller.addProduct)
+        this.#formAddProduct.addEventListener('submit', this.#shopController.addProduct)
 
-        this.#btnOrder.addEventListener('click', this.#shopContorller.makeOrder)
+        this.#btnOrder.addEventListener('click', this.#shopController.makeOrder)
     }
 
     renderProductsFromCart(products, totalCartValue = 0) {
@@ -42,14 +45,13 @@ export default class DOMService {
         this.#spanCartOrderAmount.innerText = `${totalCartValue.toFixed(FRACTION_DIGITS)}`;
 
         if(products.length <= 0) {
-            this.#ulCartItems.innerHTML = `<h2>Cart is empty</h2>`
+            this.#ulCartItems.innerHTML = `<h2>${EMPTY_CART_INFO}</h2>`
             return;
         }
 
         if(products.length > 0) {
             this.#btnOrder.removeAttribute('disabled')
         }
-
 
         products.forEach((product, index) => {
             console.log(product)
@@ -85,12 +87,11 @@ export default class DOMService {
             this.#ulProductsItems.innerHTML += element;
         })
 
-        // those buttons are dynamic, thats why can not be in constructor
         this.#mountButtonsBuy();
     }
 
     totalAmountToPay(totalAmountToPay) {
-        return alert('Total amount to pay: ' + totalAmountToPay.toFixed(FRACTION_DIGITS));
+        return alert(`${TOTAL_PAY_INFO} ${totalAmountToPay.toFixed(FRACTION_DIGITS)}`);
     }
 
 
@@ -99,7 +100,7 @@ export default class DOMService {
         const price = this.#inputProductPrice.value;
 
         if(name === "" || price === "")
-            return alert("Product name or price can not be empty")
+            return alert(`${PRODUCT_INPUT_VALIDATION_INFO}`)
 
         this.#inputProductName.value = "";
         this.#inputProductPrice.value = "";
@@ -113,12 +114,12 @@ export default class DOMService {
     #mountButtonsBuy() {
         this.#allBtnBuy = document.querySelectorAll('[data-product-btn-buy]')
         this.#allBtnBuy.forEach(btn =>
-            btn.addEventListener('click', this.#shopContorller.buyProduct));
+            btn.addEventListener('click', this.#shopController.buyProduct));
     }
 
     #mountButtonsDrop() {
         this.#allBtnDrop = document.querySelectorAll('[data-cart-btn-drop]')
         this.#allBtnDrop.forEach(btn =>
-            btn.addEventListener('click', this.#shopContorller.dropProduct));
+            btn.addEventListener('click', this.#shopController.dropProduct));
     }
 }
