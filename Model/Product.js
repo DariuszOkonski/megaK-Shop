@@ -10,10 +10,6 @@ export default class Product {
         this.#price = price;
     }
 
-    setId(id) {
-        this.#id = id;
-    }
-
     getProductJSON() {
         return {
             id: this.#id,
