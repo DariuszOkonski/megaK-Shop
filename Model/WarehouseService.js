@@ -1,5 +1,6 @@
 export default class WarehouseService {
     #products;
+
     constructor(products) {
         this.#products = products;
     }
