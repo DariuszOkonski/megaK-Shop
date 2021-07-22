@@ -1,6 +1,6 @@
 import {
     EMPTY_CART_INFO,
-    FRACTION_DIGITS, NO_PRODUCT_IN_STROE_INFO,
+    FRACTION_DIGITS, NO_PRODUCT_IN_STORE_INFO,
     PRODUCT_INPUT_VALIDATION_INFO,
     TOTAL_PAY_INFO
 } from "../Utilities/constants.js";
@@ -86,7 +86,7 @@ export default class DOMService {
         if(products.length <= 0) {
             this.#ulProductsItems.innerHTML = `
                 <div class="alert alert-danger text-center" role="alert">
-                    <h5>${NO_PRODUCT_IN_STROE_INFO}</h5>
+                    <h5>${NO_PRODUCT_IN_STORE_INFO}</h5>
                 </div>
             `;
             return;
