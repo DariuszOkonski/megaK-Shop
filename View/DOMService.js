@@ -59,13 +59,19 @@ export default class DOMService {
 
         products.forEach((product, index) => {
             const element = `
-                <li data-cart-item>
-                    <span data-cart-number>${index + 1}</span> - 
-                    <span data-cart-product-name>${product.name}</span>
-                    <span data-cart-price>${product.price}</span> zł
-                <button data-id="${product.id}" data-cart-btn-drop>drop</button>
-            </li>
-            `
+                <li data-products-item class="d-flex justify-content-between m-1">
+                        <div class="d-flex align-items-center flex-grow-1 m-1">
+                            <div class="alert alert-success m-0 p-1 flex-grow-1" role="alert">                    
+                                <span data-cart-number>${index + 1}</span> - 
+                                <span data-cart-product-name>${product.name}</span>
+                                <span data-cart-price>${product.price}</span> zł                    
+                        </div>
+                    </div>
+                    <button data-id="${product.id}" data-cart-btn-drop class="btn btn-danger btn-sm m-1">Drop!</button>
+                </li>`;
+
+
+
             this.#ulCartItems.innerHTML += element;
         })
 
@@ -86,12 +92,14 @@ export default class DOMService {
 
         products.forEach(product => {
             const element = `
-                <li data-products-item class="d-flex justify-content-between m-2">
-                    <div class="d-flex align-items-center">
-                        <span data-product-name>${product.name}</span> -
-                        <span data-product-price>${Number(product.price).toFixed(FRACTION_DIGITS)}</span> zł                    
+                <li data-products-item class="d-flex justify-content-between m-1">
+                    <div class="d-flex align-items-center flex-grow-1 m-1">
+                        <div class="alert alert-success m-0 p-1 flex-grow-1" role="alert">                    
+                            <span data-product-name>${product.name}</span> -
+                            <span data-product-price>${Number(product.price).toFixed(FRACTION_DIGITS)}</span> zł                    
+                        </div>
                     </div>
-                    <button data-id="${product.id}" data-product-btn-buy class="btn btn-success btn-sm">Buy!</button>
+                    <button data-id="${product.id}" data-product-btn-buy class="btn btn-success btn-sm m-1">Buy!</button>
                 </li>`;
             this.#ulProductsItems.innerHTML += element;
         })
