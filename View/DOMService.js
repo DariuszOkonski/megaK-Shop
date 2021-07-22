@@ -1,6 +1,6 @@
 import {
     EMPTY_CART_INFO,
-    FRACTION_DIGITS,
+    FRACTION_DIGITS, NO_PRODUCT_IN_STROE_INFO,
     PRODUCT_INPUT_VALIDATION_INFO,
     TOTAL_PAY_INFO
 } from "../Utilities/constants.js";
@@ -45,7 +45,11 @@ export default class DOMService {
         this.#spanCartOrderAmount.innerText = `${totalCartValue.toFixed(FRACTION_DIGITS)}`;
 
         if(products.length <= 0) {
-            this.#ulCartItems.innerHTML = `<h2>${EMPTY_CART_INFO}</h2>`
+            this.#ulCartItems.innerHTML = `
+                <div class="alert alert-danger text-center" role="alert">
+                    <h5>${EMPTY_CART_INFO}</h5>
+                </div>
+            `
             return;
         }
 
@@ -72,16 +76,22 @@ export default class DOMService {
         this.#ulProductsItems.innerHTML = "";
 
         if(products.length <= 0) {
-            this.#ulProductsItems.innerHTML = `<h2>No Products in Store</h2>`;
+            this.#ulProductsItems.innerHTML = `
+                <div class="alert alert-danger text-center" role="alert">
+                    <h5>${NO_PRODUCT_IN_STROE_INFO}</h5>
+                </div>
+            `;
             return;
         }
 
         products.forEach(product => {
             const element = `
-                <li data-products-item>
-                    <span data-product-name>${product.name}</span> -
-                    <span data-product-price>${Number(product.price).toFixed(FRACTION_DIGITS)}</span> zł
-                    <button data-id="${product.id}" data-product-btn-buy>Buy!</button>
+                <li data-products-item class="d-flex justify-content-between m-2">
+                    <div class="d-flex align-items-center">
+                        <span data-product-name>${product.name}</span> -
+                        <span data-product-price>${Number(product.price).toFixed(FRACTION_DIGITS)}</span> zł                    
+                    </div>
+                    <button data-id="${product.id}" data-product-btn-buy class="btn btn-success btn-sm">Buy!</button>
                 </li>`;
             this.#ulProductsItems.innerHTML += element;
         })
