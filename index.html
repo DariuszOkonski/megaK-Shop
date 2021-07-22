@@ -17,7 +17,7 @@
 
         <div class="card mt-3 mt-3">
             <div class="card-body text-center">
-                <h1>MegaK - Shop</h1>
+                <h1><i class="fas fa-shopping-cart text-primary fa-lg"></i> MegaK - Shop <i class="fas fa-shopping-cart text-primary fa-lg"></i></h1>
             </div>
         </div>
 
@@ -35,7 +35,9 @@
                                 <form data-admin-submit class="d-flex">
                                     <input type="text" class="form-control m-2 p-2" placeholder="add product..." data-admin-product-name />
                                     <input type="number" class="form-control m-2 p-2" placeholder="add price..." step="0.01" data-admin-product-price />
-                                    <input type="submit" class="btn btn-primary m-2"  value="Add" />
+                                    <button class="btn btn-primary m-2">
+                                        <i  class="fas fa-plus-circle"></i>
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -68,7 +70,9 @@
                         </ul>
 
                         <div class="d-flex">
-                            <button class="btn btn-primary flex-grow-1" disabled data-cart-btn-order>Make order for amount of: <span data-cart-order-amount>0</span> zł</button>
+                            <button class="d-flex justify-content-center align-items-center btn btn-primary flex-grow-1" disabled data-cart-btn-order>
+                                <i class="fas fa-money-bill-alt fa-2x m-2"></i><span data-cart-order-amount>0</span> zł
+                            </button>
                         </div>
 
 
@@ -80,6 +84,7 @@
 
     </div>
 
+    <script src="https://kit.fontawesome.com/39871aa8d6.js" crossorigin="anonymous"></script>
     <script type="module" src="Controller/ShopController.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

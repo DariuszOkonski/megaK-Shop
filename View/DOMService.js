@@ -67,7 +67,9 @@ export default class DOMService {
                                 <span data-cart-price>${product.price}</span> zł                    
                         </div>
                     </div>
-                    <button data-id="${product.id}" data-cart-btn-drop class="btn btn-danger btn-sm m-1">Drop!</button>
+                    <button data-id="${product.id}" data-cart-btn-drop class="btn btn-danger btn-sm m-1">
+                        <i data-id="${product.id}" class="fas fa-trash-alt"></i>
+                    </button>
                 </li>`;
 
 
@@ -99,7 +101,9 @@ export default class DOMService {
                             <span data-product-price>${Number(product.price).toFixed(FRACTION_DIGITS)}</span> zł                    
                         </div>
                     </div>
-                    <button data-id="${product.id}" data-product-btn-buy class="btn btn-success btn-sm m-1">Buy!</button>
+                    <button data-id="${product.id}" data-product-btn-buy class="btn btn-success btn-sm m-1">
+                        <i data-id="${product.id}" class="fas fa-shopping-basket"></i>
+                    </button>
                 </li>`;
             this.#ulProductsItems.innerHTML += element;
         })
@@ -116,8 +120,9 @@ export default class DOMService {
         const name = this.#inputProductName.value;
         const price = this.#inputProductPrice.value;
 
-        if(name === "" || price === "")
+        if(name === "" || price === "") {
             return alert(`${PRODUCT_INPUT_VALIDATION_INFO}`)
+        }
 
         this.#inputProductName.value = "";
         this.#inputProductPrice.value = "";
