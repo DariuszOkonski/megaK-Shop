@@ -74,4 +74,5 @@ class ShopController {
     }
 }
 
+alert('Admin password: admin123')
 new ShopController();

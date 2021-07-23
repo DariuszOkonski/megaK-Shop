@@ -2,7 +2,7 @@ import {
     EMPTY_CART_INFO,
     FRACTION_DIGITS, NO_PRODUCT_IN_STORE_INFO,
     PRODUCT_INPUT_VALIDATION_INFO,
-    TOTAL_PAY_INFO, WRONG_PASSWORD_TIME
+    TOTAL_PAY_INFO, PASSWORD_TIME
 } from "../Utilities/constants.js";
 
 export default class DOMService {
@@ -18,6 +18,7 @@ export default class DOMService {
     #spanCartOrderAmount
     #formLogin;
     #divWrongPasswordInfo;
+    #divCorrectPasswordInfo;
     #divAdminLoginContainer;
     #divAdminSubmitContainer;
     #inputLoginName;
@@ -27,6 +28,7 @@ export default class DOMService {
         this.#formAddProduct = document.querySelector('[data-admin-submit]');
         this.#formLogin = document.querySelector('[data-admin-login]');
         this.#divWrongPasswordInfo = document.querySelector('[data-wrong-password-info]');
+        this.#divCorrectPasswordInfo = document.querySelector('[data-correct-password-info]');
 
         this.#divAdminLoginContainer = document.querySelector('[data-admin-login-container]');
         this.#divAdminSubmitContainer = document.querySelector('[data-admin-submit-container]')
@@ -59,14 +61,19 @@ export default class DOMService {
     tryToLogIn(isLogged) {
         if(!isLogged) {
             this.#divWrongPasswordInfo.style.display = 'block';
+            this.#inputLoginName.disabled = true;
             setTimeout(() => {
+                this.#inputLoginName.disabled = false;
                 this.#divWrongPasswordInfo.style.display = 'none';
-            },WRONG_PASSWORD_TIME);
+            },PASSWORD_TIME);
             return;
         }
 
         this.#divAdminLoginContainer.style.display = 'none';
         this.#divAdminSubmitContainer.style.display = 'block';
+        setTimeout(() => {
+            this.#divCorrectPasswordInfo.style.display = 'none';
+        }, PASSWORD_TIME)
     }
 
     renderProductsFromCart(products, totalCartValue = 0) {
