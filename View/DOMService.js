@@ -2,7 +2,7 @@ import {
     EMPTY_CART_INFO,
     FRACTION_DIGITS, NO_PRODUCT_IN_STORE_INFO,
     PRODUCT_INPUT_VALIDATION_INFO,
-    TOTAL_PAY_INFO
+    TOTAL_PAY_INFO, WRONG_PASSWORD_TIME
 } from "../Utilities/constants.js";
 
 export default class DOMService {
@@ -16,12 +16,24 @@ export default class DOMService {
     #ulProductsItems;
     #ulCartItems;
     #spanCartOrderAmount
+    #formLogin;
+    #divWrongPasswordInfo;
+    #divAdminLoginContainer;
+    #divAdminSubmitContainer;
+    #inputLoginName;
 
     constructor(shopController) {
         this.#shopController = shopController;
         this.#formAddProduct = document.querySelector('[data-admin-submit]');
+        this.#formLogin = document.querySelector('[data-admin-login]');
+        this.#divWrongPasswordInfo = document.querySelector('[data-wrong-password-info]');
+
+        this.#divAdminLoginContainer = document.querySelector('[data-admin-login-container]');
+        this.#divAdminSubmitContainer = document.querySelector('[data-admin-submit-container]')
         this.#btnOrder = document.querySelector('[data-cart-btn-order]');
 
+
+        this.#inputLoginName = document.querySelector('[data-admin-login-name]');
         this.#inputProductName = document.querySelector('[data-admin-product-name]');
         this.#inputProductPrice = document.querySelector('[data-admin-product-price]');
 
@@ -29,13 +41,32 @@ export default class DOMService {
         this.#ulCartItems = document.querySelector('[data-cart-items]');
         this.#spanCartOrderAmount = document.querySelector('[data-cart-order-amount]')
 
+        this.#divAdminLoginContainer.style.display = 'block';
+        this.#divWrongPasswordInfo.style.display = 'none';
+        this.#divAdminSubmitContainer.style.display = 'none';
+
         this.#addAllEventListeners();
+
     }
 
     #addAllEventListeners() {
         this.#formAddProduct.addEventListener('submit', this.#shopController.addProduct)
+        this.#formLogin.addEventListener('submit', this.#shopController.tryToLogIn);
 
         this.#btnOrder.addEventListener('click', this.#shopController.makeOrder)
+    }
+
+    tryToLogIn(isLogged) {
+        if(!isLogged) {
+            this.#divWrongPasswordInfo.style.display = 'block';
+            setTimeout(() => {
+                this.#divWrongPasswordInfo.style.display = 'none';
+            },WRONG_PASSWORD_TIME);
+            return;
+        }
+
+        this.#divAdminLoginContainer.style.display = 'none';
+        this.#divAdminSubmitContainer.style.display = 'block';
     }
 
     renderProductsFromCart(products, totalCartValue = 0) {
@@ -115,6 +146,11 @@ export default class DOMService {
         return alert(`${TOTAL_PAY_INFO} ${totalAmountToPay.toFixed(FRACTION_DIGITS)}`);
     }
 
+    getPassword() {
+        const password = this.#inputLoginName.value;
+        this.#inputLoginName.value = "";
+        return password;
+    }
 
     getNewProductCredentials() {
         const name = this.#inputProductName.value;

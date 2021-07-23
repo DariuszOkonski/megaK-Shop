@@ -1,16 +1,19 @@
 import DOMService from "../View/DOMService.js";
 import ProductController from "./ProductController.js";
 import CartController from "./CartController.js";
+import LoginController from "./LoginController.js";
 
 class ShopController {
     #domService;
     #productController;
     #cartController;
+    #loginController;
 
     constructor() {
         this.#domService = new DOMService(this)
         this.#productController = new ProductController();
         this.#cartController = new CartController();
+        this.#loginController = new LoginController();
         this.#render();
     }
 
@@ -22,6 +25,15 @@ class ShopController {
         const totalCartValue = this.#cartController.getTotalAmountFromCart();
         this.#domService.renderProductsFromCart(cartProducts, totalCartValue);
     }
+
+    tryToLogIn = (e) => {
+        e.preventDefault();
+        const password = this.#domService.getPassword();
+        const response = this.#loginController.login(password);
+
+        this.#domService.tryToLogIn(response);
+    }
+
 
     addProduct = (e) => {
         e.preventDefault();
